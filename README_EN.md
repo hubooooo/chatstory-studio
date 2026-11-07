@@ -25,7 +25,7 @@ Example B includes cached, genuinely generated Chinese male/female Edge voices. 
 
 Playback and export share the same frame-based UI. `voice_mode: manual` disables automatic voice playback in output. Message times are explicit; long speech does not shift later events. Restarted queue jobs can be retried from the beginning, not resumed mid-frame. Financial/contact bubbles are simplified original simulations. Recall currently renders a notice rather than removing an earlier targeted bubble. Split individual messages taller than the viewport.
 
-The three actual demo videos remain in `outputs/` after rendering and are excluded from Git by default. See `docs/FINAL_REPORT.md`, `docs/RENDER_QA_REPORT.md` and `docs/PERFORMANCE_REPORT.md` for measured results and limitations.
+Published demos: [Text conversation](https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-a.mp4), [male/female speech](https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-b.mp4), [group/images/long text](https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-c.mp4). Release assets include source, JSON, subtitles, thumbnails and validation records. User-generated videos remain excluded from Git by default. See `docs/FINAL_REPORT.md`, `docs/RENDER_QA_REPORT.md` and `docs/PERFORMANCE_REPORT.md` for measured results and limitations.
 
 Our original source is MIT. **Remotion has a custom license with eligibility and company licensing requirements**; it is not MIT. FFmpeg/FFprobe binaries and speech engines have independent terms. Read `THIRD_PARTY_NOTICES.md` and `docs/LICENSE_AUDIT.md` before redistribution or organizational use. No paid service is called by this project.
 

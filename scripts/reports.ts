@@ -2,6 +2,13 @@ import fs from "node:fs/promises";
 import { run, ROOT } from "./media";
 const read = async (p: string) =>
   JSON.parse((await fs.readFile(p, "utf8")).replace(/^\uFEFF/, ""));
+let publicationVerified = false;
+try {
+  publicationVerified =
+    (await read("docs/github-publication.json")).verified === true;
+} catch (e) {
+  if ((e as NodeJS.ErrnoException).code !== "ENOENT") throw e;
+}
 const batch = await read("outputs/batch-results.json"),
   perf = await read("docs/performance-results.json"),
   editor = await read("docs/editor-performance.json"),
@@ -106,9 +113,10 @@ Example B final audio is genuine Edge zh-CN-YunxiNeural and zh-CN-XiaoxiaoNeural
 Batch isolation: malformed 00-invalid.json failed, subsequent 01-valid.json rendered successfully; results/logs retained. Editor import → export → progress/download → MP4 probe → reload → persisted queue file was exercised by tests/export.ts. No remote TTS is used in deterministic CI rendering.
 `,
 );
-await fs.writeFile(
-  "docs/FINAL_REPORT.md",
-  `# ChatStory Studio delivery — 2026-11-07
+if (!publicationVerified)
+  await fs.writeFile(
+    "docs/FINAL_REPORT.md",
+    `# ChatStory Studio delivery — 2026-11-07
 
 Usable local end-to-end prerelease candidate, not a claim of stable v1.0.0 or completed public publication. Project is isolated in chatstory-studio; original work and two reference checkouts remain untouched outside it.
 
@@ -161,10 +169,11 @@ Start: npm ci → npm run dev → http://127.0.0.1:3210 (or start-windows.cmd). 
 
 Last committed source checkpoint when this report was generated: ${sourceCommit}. Final immutable source commit is recorded in outputs/release/release-manifest.json after the final local commit. Git history contains stage checkpoints; this continuous implementation did not manufacture backdated per-phase histories.
 `,
-);
-await fs.writeFile(
-  "docs/OPEN_SOURCE_RELEASE_REPORT.md",
-  `# Open-source release checkpoint — 2026-11-07
+  );
+if (!publicationVerified)
+  await fs.writeFile(
+    "docs/OPEN_SOURCE_RELEASE_REPORT.md",
+    `# Open-source release checkpoint — 2026-11-07
 
 Project: ChatStory Studio. Version: 0.1.0 prerelease candidate. Own source: MIT, with independently licensed dependencies; see LICENSE_AUDIT.md. Architecture, performance, actual UI/media evidence and limits: ARCHITECTURE_REVIEW.md, PERFORMANCE_REPORT.md, RENDER_QA_REPORT.md and FINAL_REPORT.md.
 
@@ -185,10 +194,11 @@ Public manifest for approval: current tracked source, configuration/lockfile, or
 
 Ready next action is user review of owner + name + public file manifest + prerelease version/attachments. The supplied task explicitly requires final confirmation before Public publication; no public repo or release has been created prematurely. After confirmation: create an independent attributed repository without overwriting an existing remote, push without force, set topics, run/inspect CI, create a prerelease only after checks succeed, then read back actual repository and Release state. v1.0.0 is not justified while the documented limitations and broader clean-machine acceptance remain.
 `,
-);
-await fs.writeFile(
-  "docs/PROJECT_STATUS.md",
-  `# Phase checkpoints
+  );
+if (!publicationVerified)
+  await fs.writeFile(
+    "docs/PROJECT_STATUS.md",
+    `# Phase checkpoints
 
 - Phase 0: audited actual upstream code/licenses/environment; original project builds and 123 tests pass. License-safe independent implementation chosen.
 - Phases 1–4: shared phone/chat editor, timeline, real media/speech, schema, CLI/batch and persisted queue implemented and exercised.
@@ -197,7 +207,7 @@ await fs.writeFile(
 - Phase 7: original brand, bilingual docs, license inventory, privacy defaults, source audit, contribution/security/issue templates and CI prepared.
 - Phase 8: normal-user GitHub authentication valid; repository/owner/public-content confirmation pending. No public repository, remote CI or Release falsely claimed.
 `,
-);
+  );
 console.log(
   "Final architecture, performance, media and release reports generated",
 );

@@ -1,6 +1,6 @@
 # ChatStory Studio delivery — 2026-11-07
 
-Usable local end-to-end prerelease candidate, not a claim of stable v1.0.0 or completed public publication. Project is isolated in chatstory-studio; original work and two reference checkouts remain untouched outside it.
+Usable local end-to-end v0.1.0 prerelease, publicly published after the user's explicit confirmation. Repository: https://github.com/hubooooo/chatstory-studio. Release: https://github.com/hubooooo/chatstory-studio/releases/tag/v0.1.0. This is not stable v1.0.0. Project is isolated in chatstory-studio; original work and two reference checkouts remain untouched outside it.
 
 ## Executed commands
 
@@ -41,7 +41,7 @@ Each output includes source JSON, prepared Story, log, validation JSON, JPG and 
 
 Original device/chat UI, editor CRUD/reorder, roles/avatars, appearance templates, frame timing, typing/pop/scroll, playable/animated voice bars, Edge/offline/local audio/cache, original effects/volume/mute/limiter, schema, save/import/export, serial persisted queue/retry, CLI/batch, artifacts, probe/decode QA, docs and CI configuration are implemented.
 
-Do not claim stable completeness: finance/contact visuals are simplified; recall is currently a notice rather than targeted history deletion; extremely tall single bubbles should be split; queue restarts from beginning rather than resuming a partial encode. Voice settings cache invalidation is automatic through UI; externally edited JSON with a fixed audio_path intentionally retains that recording. No Electron installer or AI story-writing model is included. No public remote CI result exists before authorized publication.
+Do not claim stable completeness: finance/contact visuals are simplified; recall is currently a notice rather than targeted history deletion; extremely tall single bubbles should be split; queue restarts from beginning rather than resuming a partial encode. Voice settings cache invalidation is automatic through UI; externally edited JSON with a fixed audio_path intentionally retains that recording. No Electron installer or AI story-writing model is included. Public Windows/Ubuntu/Gitleaks CI passed for the release commit; see the publication receipt.
 
 ## Licensing / security / operation
 
@@ -51,4 +51,8 @@ Host/Origin checks, loopback binding, safe subprocess arguments, realpath asset 
 
 Start: npm ci → npm run dev → http://127.0.0.1:3210 (or start-windows.cmd). Use README's render/batch commands. Edge CLI is optional when cached/local audio is used. FFmpeg/FFprobe installed by npm; first render downloads a browser unless CHROME_PATH is supplied. All evidence and MP4 files remain on disk.
 
-Last committed source checkpoint when this report was generated: 580ecf8a1f10c20d2deda0b87df2f915005dcc47. Final immutable source commit is recorded in outputs/release/release-manifest.json after the final local commit. Git history contains stage checkpoints; this continuous implementation did not manufacture backdated per-phase histories.
+Initial source checkpoint: 580ecf8a1f10c20d2deda0b87df2f915005dcc47. Published release source: d349e22e1038ea476adb33d80fb7f638c6f687d6; both the remote v0.1.0 tag and source archive manifest identify this commit. CI https://github.com/hubooooo/chatstory-studio/actions/runs/42355944377 passed all three jobs. Git history contains stage checkpoints; this continuous implementation did not manufacture backdated per-phase histories.
+
+## Public release verification
+
+Executed gh repo create --public with source/push, configured topics, inspected CI failures and repaired root-history/container ownership scanning, then created v0.1.0 with --prerelease after successful checks. Read back repository visibility, remote tag, Release flags/assets and matching CI commit. Downloaded all 24 primary Release files, matched SHA-256 against local artifacts and GitHub asset digests, probed and fully decoded all 3 published MP4s. Receipt: github-publication.json. This is verification of remote results, not merely a successful push command. No private projects, environment files, unreviewed uploads or runtime dependencies were published.

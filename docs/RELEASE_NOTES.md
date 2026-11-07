@@ -15,3 +15,7 @@ Repository: https://github.com/hubooooo/chatstory-studio
 Prerelease and downloadable source/demo artifacts: https://github.com/hubooooo/chatstory-studio/releases/tag/v0.1.0
 
 Local validation: 15 tests passed, 0 failed, 0 skipped; Windows and Ubuntu CI include real offline repeated rendering and decoded-frame hash comparison. Full-history Gitleaks scanning includes the root commit. The live CI run and publication receipt record the exact release commit and final result.
+
+Verified release commit: `d349e22e1038ea476adb33d80fb7f638c6f687d6`.
+
+[Passing Windows / Ubuntu / Gitleaks CI](https://github.com/hubooooo/chatstory-studio/actions/runs/42355944377). All 24 primary Release files were downloaded and matched against SHA-256 values; all three published MP4s passed probing and full decoding. See the attached `github-publication.json` verification receipt.

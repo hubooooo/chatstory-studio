@@ -1,0 +1,199 @@
+{
+  "verified": true,
+  "verified_at_utc": "2026-11-07T08:37:32.025Z",
+  "repository_url": "https://github.com/hubooooo/chatstory-studio",
+  "public": true,
+  "release_url": "https://github.com/hubooooo/chatstory-studio/releases/tag/v0.1.0",
+  "tag": "v0.1.0",
+  "commit": "d349e22e1038ea476adb33d80fb7f638c6f687d6",
+  "prerelease": true,
+  "draft": false,
+  "published_at_utc": "2026-11-07T08:35:40Z",
+  "published_at_shanghai": "2026/11/7 16:35:40",
+  "ci": {
+    "id": 42355944377,
+    "url": "https://github.com/hubooooo/chatstory-studio/actions/runs/42355944377",
+    "conclusion": "success",
+    "commit": "d349e22e1038ea476adb33d80fb7f638c6f687d6",
+    "jobs": [
+      {
+        "name": "verify (windows-latest)",
+        "conclusion": "success"
+      },
+      {
+        "name": "verify (ubuntu-latest)",
+        "conclusion": "success"
+      },
+      {
+        "name": "secrets",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "remote_assets": 24,
+  "verified_artifacts": [
+    {
+      "name": "chatstory-studio-0.1.0-source.zip",
+      "bytes": 637109,
+      "sha256": "fac5ebc9ac151d30d7b517628179229e6d96f22e535075864065adcb70eb6bd0",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/chatstory-studio-0.1.0-source.zip"
+    },
+    {
+      "name": "demo-a.mp4",
+      "bytes": 789550,
+      "sha256": "d2cc3a719d3b8f742171534811bd18daf513ef439bad8ce67bd8ba67e26efd73",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-a.mp4"
+    },
+    {
+      "name": "demo-a.jpg",
+      "bytes": 31014,
+      "sha256": "8847c7ef2f0b40d224f178004677b045d3f6b3ffe789e5668c08ffca18024134",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-a.jpg"
+    },
+    {
+      "name": "demo-a.srt",
+      "bytes": 572,
+      "sha256": "bd8f3b8e440845fcf87820bb255d45110006507194e14c4dadfc69c511412486",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-a.srt"
+    },
+    {
+      "name": "demo-a.source.json",
+      "bytes": 4312,
+      "sha256": "62f778c27d312f46d535dfd726a8ba242b608948d058be5f111915bcb44890e3",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-a.source.json"
+    },
+    {
+      "name": "demo-a.story.json",
+      "bytes": 4335,
+      "sha256": "8e0e5750b6a8675c63b4d4ed52c58c6a1c9428d82eee1e12309b37435b578ccc",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-a.story.json"
+    },
+    {
+      "name": "demo-a.validation.json",
+      "bytes": 3374,
+      "sha256": "2e7b362221890d0b89ae6b4964627d3e211f4085dea36be9f847560dc7c440b9",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-a.validation.json"
+    },
+    {
+      "name": "demo-a.log",
+      "bytes": 125,
+      "sha256": "8c0cfee43d5ab3a71b5f9b3e63eb39240eef0efaf93786a1bc99856df7acce49",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-a.log"
+    },
+    {
+      "name": "demo-b.mp4",
+      "bytes": 301700,
+      "sha256": "19b463592fee2f050aab4063804aa573570ee5600a36294aecb25679de004d2f",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-b.mp4"
+    },
+    {
+      "name": "demo-b.jpg",
+      "bytes": 36543,
+      "sha256": "bd4511193141c343d01777548f8db965d772e1cd6ec10c3be816906595881b3b",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-b.jpg"
+    },
+    {
+      "name": "demo-b.srt",
+      "bytes": 328,
+      "sha256": "5132feca1d669ecb0acfa553135e12ca2efadf0e08f589fde5820472a20bef5f",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-b.srt"
+    },
+    {
+      "name": "demo-b.source.json",
+      "bytes": 2971,
+      "sha256": "41dd936973306d4cf7602f10059437740cd1b310e29feec8fdfbaeb26af776c7",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-b.source.json"
+    },
+    {
+      "name": "demo-b.story.json",
+      "bytes": 2971,
+      "sha256": "bb7987fe734c3c577e62f5e3f0f5e5d60393f27ff11a856d1114b0b9be517577",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-b.story.json"
+    },
+    {
+      "name": "demo-b.validation.json",
+      "bytes": 3378,
+      "sha256": "8fe00d9f1953da554bd6fb113e712047c64090464364a5544e1c0afde24c27d2",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-b.validation.json"
+    },
+    {
+      "name": "demo-b.log",
+      "bytes": 125,
+      "sha256": "fa7b51629286257188a737d7d0e9ff7dc5087f33ee68cba2b0dc5262e711b80f",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-b.log"
+    },
+    {
+      "name": "demo-c.mp4",
+      "bytes": 2326901,
+      "sha256": "3aac1c3be8c5082af8ee6e770e51b7eb0b08061ead3fa239bccf048fa5e77dd4",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-c.mp4"
+    },
+    {
+      "name": "demo-c.jpg",
+      "bytes": 32172,
+      "sha256": "95703313e3aa2c4bb6a7c6af3c098ccf5181962727d1bc9a4e8589f30bd7fed5",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-c.jpg"
+    },
+    {
+      "name": "demo-c.srt",
+      "bytes": 928,
+      "sha256": "d7130be7dfacd4ae5e7c83345cef3d79b804dab230e533fe6eec22fcd0d7aa06",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-c.srt"
+    },
+    {
+      "name": "demo-c.source.json",
+      "bytes": 5255,
+      "sha256": "b3408aa928b9f3d95a39ceaf028eef8fa3fcbb52606943bf57b35eb334a868c5",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-c.source.json"
+    },
+    {
+      "name": "demo-c.story.json",
+      "bytes": 5278,
+      "sha256": "6961726157f1d26a6a8e0dc214af3b08a3f5d8cc242d0c951f0b3884eec53559",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-c.story.json"
+    },
+    {
+      "name": "demo-c.validation.json",
+      "bytes": 3380,
+      "sha256": "78830148bd0887410d45a6e7cceaf8a72dfb5c8363034ff948af30b61dd8cc9d",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-c.validation.json"
+    },
+    {
+      "name": "demo-c.log",
+      "bytes": 125,
+      "sha256": "6d4f50834768daa34247ae438d3107a0827db4c7da89c927ebd213923bdf975f",
+      "url": "https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-c.log"
+    }
+  ],
+  "downloaded_files_verified": 24,
+  "downloaded_media": [
+    {
+      "file": "demo-a.mp4",
+      "width": 1080,
+      "height": 1920,
+      "fps": "30/1",
+      "video": "h264",
+      "audio": "aac",
+      "decode": "PASS"
+    },
+    {
+      "file": "demo-b.mp4",
+      "width": 1080,
+      "height": 1920,
+      "fps": "30/1",
+      "video": "h264",
+      "audio": "aac",
+      "decode": "PASS"
+    },
+    {
+      "file": "demo-c.mp4",
+      "width": 1080,
+      "height": 1920,
+      "fps": "30/1",
+      "video": "h264",
+      "audio": "aac",
+      "decode": "PASS"
+    }
+  ],
+  "installer": false
+}

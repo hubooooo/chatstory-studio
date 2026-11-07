@@ -56,7 +56,7 @@ python -m venv .venv
 
 ## Demo 与验收
 
-在本次交付目录执行批量命令后，可直接播放 `outputs/demo-a.mp4`（文字）、`outputs/demo-b.mp4`（文字＋真实男女配音）、`outputs/demo-c.mp4`（群聊／图片／长文字）。生成视频不默认提交到 Git；公开发布前会另行确认视频附件。仓库仅包含真实编辑器截图，不使用占位演示链接。
+真实成片：[文字聊天](https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-a.mp4) · [文字＋男女配音](https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-b.mp4) · [群聊／图片／长文字](https://github.com/hubooooo/chatstory-studio/releases/download/v0.1.0/demo-c.mp4)。视频作为 Release 附件发布，JSON、字幕、缩略图、日志及校验结果一并提供；用户自己的生成视频仍默认不提交到 Git。
 
 ```powershell
 npm test
