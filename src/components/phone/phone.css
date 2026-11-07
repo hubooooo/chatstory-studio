@@ -1,0 +1,4 @@
+[data-testid="phone-canvas"],
+[data-testid="phone-canvas"] * {
+  box-sizing: border-box;
+}

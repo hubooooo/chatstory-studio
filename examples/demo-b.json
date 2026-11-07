@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0",
+  "project_id": "demo-b",
+  "title": "一份特别的惊喜",
+  "device": {
+    "platform": "ios",
+    "frame": true,
+    "cutout": "island"
+  },
+  "status_bar": {
+    "time": "08:30",
+    "battery": 85,
+    "charging": false,
+    "network": "Wi-Fi",
+    "signal": 4
+  },
+  "theme": {
+    "mode": "light",
+    "background": "#ededed"
+  },
+  "characters": [
+    {
+      "id": "lin",
+      "name": "小林",
+      "side": "left",
+      "color": "#bd8870",
+      "voice_id": "zh-CN-XiaoxiaoNeural"
+    },
+    {
+      "id": "zhou",
+      "name": "小周",
+      "side": "right",
+      "color": "#5a8192",
+      "voice_id": "zh-CN-YunxiNeural"
+    },
+    {
+      "id": "chen",
+      "name": "阿辰",
+      "side": "left",
+      "color": "#8e7baa",
+      "voice_id": "zh-CN-YunxiNeural"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m0",
+      "sender_id": "lin",
+      "type": "text",
+      "text": "今天有什么安排？",
+      "appear_at_ms": 0,
+      "animation_duration_ms": 240,
+      "wait_before_ms": 0,
+      "typing_ms": 300,
+      "voice_mode": "auto",
+      "sound_effect": "receive",
+      "auto_scroll": true
+    },
+    {
+      "id": "m1",
+      "sender_id": "zhou",
+      "type": "voice",
+      "text": "我想带你去一个特别的地方。",
+      "appear_at_ms": 1100,
+      "animation_duration_ms": 240,
+      "wait_before_ms": 0,
+      "typing_ms": 300,
+      "voice_mode": "auto",
+      "sound_effect": "send",
+      "auto_scroll": true,
+      "audio_path": "assets/tts-10cb8d6d7a2035c61d152cc7.mp3",
+      "audio_duration_ms": 3144
+    },
+    {
+      "id": "m2",
+      "sender_id": "lin",
+      "type": "voice",
+      "text": "真的吗？我已经开始期待了。",
+      "appear_at_ms": 5000,
+      "animation_duration_ms": 240,
+      "wait_before_ms": 0,
+      "typing_ms": 300,
+      "voice_mode": "auto",
+      "sound_effect": "receive",
+      "auto_scroll": true,
+      "audio_path": "assets/tts-ff871e3d2b5d3dfbd85db86a.mp3",
+      "audio_duration_ms": 3288
+    },
+    {
+      "id": "m3",
+      "sender_id": "zhou",
+      "type": "text",
+      "text": "带上相机，我们去看日落。",
+      "appear_at_ms": 9500,
+      "animation_duration_ms": 240,
+      "wait_before_ms": 0,
+      "typing_ms": 300,
+      "voice_mode": "auto",
+      "sound_effect": "send",
+      "auto_scroll": true
+    },
+    {
+      "id": "m4",
+      "sender_id": "lin",
+      "type": "text",
+      "text": "好，马上出门！",
+      "appear_at_ms": 11000,
+      "animation_duration_ms": 240,
+      "wait_before_ms": 0,
+      "typing_ms": 300,
+      "voice_mode": "auto",
+      "sound_effect": "receive",
+      "auto_scroll": true
+    }
+  ],
+  "voice_settings": {
+    "backend": "edge",
+    "rate": "+0%",
+    "volume": 0.85
+  },
+  "audio_settings": {
+    "muted": false,
+    "effects_volume": 0.25
+  },
+  "render_settings": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "lead_in_ms": 500,
+    "tail_ms": 1200
+  }
+}

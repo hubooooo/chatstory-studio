@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "scanned_files": 83,
+  "history": true,
+  "findings": [],
+  "scope": "Pattern-based local scan; GitHub CI adds gitleaks. Not a proof of absence of all secret formats."
+}

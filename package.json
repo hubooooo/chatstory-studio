@@ -1,1 +1,47 @@
-{"name":"chatstory-studio","version":"0.1.0","private":true,"type":"module","scripts":{"dev":"tsx scripts/server.ts","web":"vite --host 127.0.0.1","build":"tsc --noEmit && vite build","test":"vitest run","test:ui":"tsx tests/ui.ts","render":"tsx scripts/cli.ts render","batch":"tsx scripts/cli.ts batch","tts":"tsx scripts/cli.ts tts","lint":"eslint .","check":"tsc --noEmit"},"dependencies":{"react":"19.2.0","react-dom":"19.2.0","remotion":"4.0.373","@remotion/bundler":"4.0.373","@remotion/renderer":"4.0.373","@remotion/player":"4.0.373","express":"^5.1.0","zod":"^4.1.12","ffmpeg-static":"^5.2.0","ffprobe-static":"^3.1.0","edge-tts-universal":"^1.3.3"},"devDependencies":{"@types/react":"^19.2.0","@types/react-dom":"^19.2.0","@types/node":"^24.10.0","@types/express":"^5.0.5","typescript":"~5.9.3","tsx":"^4.20.6","vite":"^7.2.2","vitest":"^3.2.4","@playwright/test":"^1.56.1","eslint":"^9.39.1","typescript-eslint":"^8.46.3"}}
+{
+  "name": "chatstory-studio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx scripts/server.ts",
+    "web": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build",
+    "test": "vitest run",
+    "test:ui": "tsx tests/ui.ts",
+    "render": "tsx scripts/cli.ts render",
+    "batch": "tsx scripts/cli.ts batch",
+    "tts": "tsx scripts/cli.ts tts",
+    "lint": "eslint .",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.541",
+    "@remotion/player": "4.0.541",
+    "@remotion/renderer": "4.0.541",
+    "express": "^5.1.0",
+    "ffmpeg-static": "^5.2.0",
+    "ffprobe-static": "^3.1.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "remotion": "4.0.541",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "eslint": "^9.39.1",
+    "prettier": "^3.9.10",
+    "tsx": "^4.20.6",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.46.3",
+    "vite": "^7.2.2",
+    "vitest": "^5.1.0"
+  },
+  "overrides": {
+    "minimatch": "11.0.5"
+  }
+}

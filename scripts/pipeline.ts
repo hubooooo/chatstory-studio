@@ -1,11 +1,151 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
-import {bundle} from '@remotion/bundler';
-import {renderMedia,selectComposition} from '@remotion/renderer';
-import {parseStory,type Story} from '../src/schema/story';
-import {durationFrames,timeline} from '../src/timeline';
-import {prepareStory,probe,run,bin,ROOT,PUBLIC} from './media';
-let bundled:Promise<string>|undefined;
-export async function renderStory(input:unknown,output:string,progress:(p:number)=>void=()=>{}){const start=Date.now();const s=await prepareStory(parseStory(input));await fs.mkdir(path.dirname(output),{recursive:true});const base=output.replace(/\.mp4$/i,'');await fs.writeFile(`${base}.story.json`,JSON.stringify(s,null,2));const lines:string[]=[];const log=async(msg:string)=>{lines.push(`${new Date().toISOString()} ${msg}`);await fs.writeFile(`${base}.log`,lines.join('\n'));};try{await log('prepare complete');bundled??=bundle({entryPoint:path.join(ROOT,'src/render/root.tsx'),publicDir:PUBLIC,onProgress:()=>{}});const serveUrl=await bundled;const browserExecutable=process.env.CHROME_PATH;const composition=await selectComposition({serveUrl,id:'ChatStory',inputProps:{story:s},browserExecutable});await log(`render ${durationFrames(s)} frames`);await renderMedia({serveUrl,composition,inputProps:{story:s},codec:'h264',audioCodec:'aac',pixelFormat:'yuv420p',outputLocation:output,overwrite:true,crf:20,concurrency:2,browserExecutable,onProgress:p=>progress(Math.round(p.progress*95))});const media=await probe(output);const v=media.streams.find((x:{codec_type:string})=>x.codec_type==='video'),a=media.streams.find((x:{codec_type:string})=>x.codec_type==='audio');if(v?.width!==1080||v?.height!==1920||v?.r_frame_rate!=='30/1'||v?.codec_name!=='h264'||a?.codec_name!=='aac')throw new Error('成品格式不符合 H.264/AAC 1080×1920 30FPS');await run(bin,['-y','-ss','0.8','-i',output,'-frames:v','1',`${base}.jpg`]);await fs.writeFile(`${base}.validation.json`,JSON.stringify({passed:true,elapsed_ms:Date.now()-start,duration_frames:durationFrames(s),media},null,2));await fs.writeFile(`${base}.srt`,subtitles(s));await log('validation PASS');progress(100);return {output,elapsed_ms:Date.now()-start,story:s};}catch(e){await log(`FAIL ${String(e)}`);throw e;}}
-function subtitles(s:Story){const stamp=(n:number)=>{const t=Math.round(n*1000/30);return `${String(Math.floor(t/3600000)).padStart(2,'0')}:${String(Math.floor(t/60000)%60).padStart(2,'0')}:${String(Math.floor(t/1000)%60).padStart(2,'0')},${String(t%1000).padStart(3,'0')}`;};return timeline(s).map((e,i,all)=>`${i+1}\n${stamp(e.start)} --> ${stamp(Math.min(all[i+1]?.start??durationFrames(s),e.start+Math.max(30,e.voiceFrames)))}\n${e.message.text}\n`).join('\n');}
-export async function batch(dir:string,out:string){await fs.mkdir(out,{recursive:true});const results=[];for(const name of (await fs.readdir(dir)).filter(n=>n.endsWith('.json')).sort()){try{const r=await renderStory(JSON.parse(await fs.readFile(path.join(dir,name),'utf8')),path.join(out,name.replace(/\.json$/,'.mp4')));results.push({input:name,ok:true,elapsed_ms:r.elapsed_ms});}catch(e){results.push({input:name,ok:false,error:String(e)});await fs.writeFile(path.join(out,name+'.error.log'),String(e));}}await fs.writeFile(path.join(out,'batch-results.json'),JSON.stringify(results,null,2));return results;}
+import fs from "node:fs/promises";
+import path from "node:path";
+import { bundle } from "@remotion/bundler";
+import { renderMedia, selectComposition } from "@remotion/renderer";
+import { parseStory, type Story } from "../src/schema/story";
+import { durationFrames, timeline } from "../src/timeline";
+import { prepareStory, probe, run, bin, ROOT, PUBLIC } from "./media";
+export async function renderStory(
+  input: unknown,
+  output: string,
+  progress: (p: number) => void = () => {},
+) {
+  const start = Date.now();
+  await fs.mkdir(path.dirname(output), { recursive: true });
+  if (!/\.mp4$/i.test(output)) throw new Error("输出文件必须使用 .mp4 扩展名");
+  const base = output.replace(/\.mp4$/i, "");
+  await fs.writeFile(`${base}.source.json`, JSON.stringify(input, null, 2));
+  const lines: string[] = [];
+  const log = async (msg: string) => {
+    lines.push(`${new Date().toISOString()} ${msg}`);
+    await fs.writeFile(`${base}.log`, lines.join("\n"));
+  };
+  try {
+    const s = await prepareStory(parseStory(input));
+    await fs.writeFile(`${base}.story.json`, JSON.stringify(s, null, 2));
+    await log("prepare complete");
+    const bundled = bundle({
+      entryPoint: path.join(ROOT, "src/render/root.tsx"),
+      publicDir: PUBLIC,
+      onProgress: () => {},
+    });
+    const serveUrl = await bundled;
+    const browserExecutable = process.env.CHROME_PATH;
+    const composition = await selectComposition({
+      serveUrl,
+      id: "ChatStory",
+      inputProps: { story: s },
+      browserExecutable,
+    });
+    await log(`render ${durationFrames(s)} frames`);
+    await renderMedia({
+      serveUrl,
+      composition,
+      inputProps: { story: s },
+      codec: "h264",
+      audioCodec: "aac",
+      pixelFormat: "yuv420p",
+      outputLocation: base + ".raw.mp4",
+      overwrite: true,
+      crf: 20,
+      concurrency: 2,
+      browserExecutable,
+      onProgress: (p) => progress(Math.round(p.progress * 95)),
+    });
+    await run(bin, [
+      "-y",
+      "-i",
+      base + ".raw.mp4",
+      "-c:v",
+      "copy",
+      "-af",
+      "alimiter=limit=0.95:level=false",
+      "-c:a",
+      "aac",
+      "-movflags",
+      "+faststart",
+      output,
+    ]);
+    await fs.unlink(base + ".raw.mp4");
+    const media = await probe(output);
+    const v = media.streams.find(
+        (x: { codec_type: string }) => x.codec_type === "video",
+      ),
+      a = media.streams.find(
+        (x: { codec_type: string }) => x.codec_type === "audio",
+      );
+    if (
+      v?.width !== 1080 ||
+      v?.height !== 1920 ||
+      v?.r_frame_rate !== "30/1" ||
+      v?.codec_name !== "h264" ||
+      a?.codec_name !== "aac"
+    )
+      throw new Error("成品格式不符合 H.264/AAC 1080×1920 30FPS");
+    await run(bin, [
+      "-y",
+      "-ss",
+      "0.8",
+      "-i",
+      output,
+      "-frames:v",
+      "1",
+      `${base}.jpg`,
+    ]);
+    await fs.writeFile(
+      `${base}.validation.json`,
+      JSON.stringify(
+        {
+          passed: true,
+          elapsed_ms: Date.now() - start,
+          duration_frames: durationFrames(s),
+          media,
+        },
+        null,
+        2,
+      ),
+    );
+    await fs.writeFile(`${base}.srt`, subtitles(s));
+    await log("validation PASS");
+    progress(100);
+    return { output, elapsed_ms: Date.now() - start, story: s };
+  } catch (e) {
+    await log(`FAIL ${String(e)}`);
+    throw e;
+  }
+}
+function subtitles(s: Story) {
+  const stamp = (n: number) => {
+    const t = Math.round((n * 1000) / 30);
+    return `${String(Math.floor(t / 3600000)).padStart(2, "0")}:${String(Math.floor(t / 60000) % 60).padStart(2, "0")}:${String(Math.floor(t / 1000) % 60).padStart(2, "0")},${String(t % 1000).padStart(3, "0")}`;
+  };
+  return timeline(s)
+    .map(
+      (e, i, all) =>
+        `${i + 1}\n${stamp(e.start)} --> ${stamp(Math.min(all[i + 1]?.start ?? durationFrames(s), e.start + Math.max(30, e.voiceFrames)))}\n${e.message.text}\n`,
+    )
+    .join("\n");
+}
+export async function batch(dir: string, out: string) {
+  await fs.mkdir(out, { recursive: true });
+  const results = [];
+  for (const name of (await fs.readdir(dir))
+    .filter((n) => n.endsWith(".json"))
+    .sort()) {
+    try {
+      const r = await renderStory(
+        JSON.parse(await fs.readFile(path.join(dir, name), "utf8")),
+        path.join(out, name.replace(/\.json$/, ".mp4")),
+      );
+      results.push({ input: name, ok: true, elapsed_ms: r.elapsed_ms });
+    } catch (e) {
+      results.push({ input: name, ok: false, error: String(e) });
+      await fs.writeFile(path.join(out, name + ".error.log"), String(e));
+    }
+  }
+  await fs.writeFile(
+    path.join(out, "batch-results.json"),
+    JSON.stringify(results, null, 2),
+  );
+  return results;
+}

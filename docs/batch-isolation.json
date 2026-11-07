@@ -1,0 +1,12 @@
+[
+  {
+    "input": "00-invalid.json",
+    "ok": false,
+    "error": "SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2)"
+  },
+  {
+    "input": "01-valid.json",
+    "ok": true,
+    "elapsed_ms": 8594
+  }
+]

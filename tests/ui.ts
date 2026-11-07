@@ -1,0 +1,50 @@
+import { chromium, expect } from "@playwright/test";
+import fs from "node:fs/promises";
+const browser = await chromium.launch({
+  executablePath:
+    process.env.CHROME_PATH ||
+    "C:/Program Files/Google/Chrome/Application/chrome.exe",
+  headless: true,
+});
+const page = await browser.newPage({ viewport: { width: 1536, height: 1100 } });
+const errors: string[] = [];
+page.on("pageerror", (e) => errors.push(e.message));
+const start = Date.now();
+await page.goto("http://127.0.0.1:3210");
+await expect(
+  page.getByRole("button", { name: "保存项目", exact: true }),
+).toBeVisible();
+await page.getByLabel("状态栏时间").fill("23:59");
+await page.getByRole("button", { name: "保存项目", exact: true }).click();
+await expect(page.getByRole("status")).toContainText("项目已保存");
+await page.reload();
+await page.getByLabel("载入项目").selectOption("new-story.json");
+await expect(page.getByLabel("状态栏时间")).toHaveValue("23:59");
+await page.getByLabel("载入示例").selectOption("demo-c.json");
+await page.getByRole("button", { name: "消息", exact: true }).click();
+await page.getByLabel("消息内容").fill("测试长文字 🌊 Hello 世界");
+await expect(page.getByLabel("消息内容")).toHaveValue(
+  "测试长文字 🌊 Hello 世界",
+);
+await page.getByRole("button", { name: "外观", exact: true }).click();
+await page.getByLabel("载入示例").selectOption("demo-c.json");
+await page.getByLabel("预览帧").fill("161");
+await expect(page.locator('[data-message-id="m5"]')).toBeVisible();
+await fs.mkdir("docs/screenshots", { recursive: true });
+await page.screenshot({ path: "docs/screenshots/editor.png", fullPage: true });
+if (errors.length) throw new Error(errors.join("\n"));
+await fs.writeFile(
+  "docs/ui-results.json",
+  JSON.stringify(
+    {
+      passed: true,
+      checks: 7,
+      page_errors: errors,
+      elapsed_ms: Date.now() - start,
+    },
+    null,
+    2,
+  ),
+);
+await browser.close();
+console.log("UI: 7 checks PASS");

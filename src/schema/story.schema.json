@@ -1,0 +1,318 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "default": "1.0",
+      "type": "string",
+      "const": "1.0"
+    },
+    "project_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "device": {
+      "type": "object",
+      "properties": {
+        "platform": {
+          "default": "ios",
+          "type": "string",
+          "enum": ["ios", "android"]
+        },
+        "frame": {
+          "default": true,
+          "type": "boolean"
+        },
+        "cutout": {
+          "default": "island",
+          "type": "string",
+          "enum": ["island", "notch", "none"]
+        }
+      },
+      "required": ["platform", "frame", "cutout"],
+      "additionalProperties": false
+    },
+    "status_bar": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "default": "08:30",
+          "type": "string",
+          "pattern": "^\\d{2}:\\d{2}$"
+        },
+        "battery": {
+          "default": 85,
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "charging": {
+          "default": false,
+          "type": "boolean"
+        },
+        "network": {
+          "default": "Wi-Fi",
+          "type": "string",
+          "enum": ["Wi-Fi", "4G", "5G"]
+        },
+        "signal": {
+          "default": 4,
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        }
+      },
+      "required": ["time", "battery", "charging", "network", "signal"],
+      "additionalProperties": false
+    },
+    "theme": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "default": "light",
+          "type": "string",
+          "enum": ["light", "dark"]
+        },
+        "background": {
+          "default": "#ededed",
+          "type": "string"
+        },
+        "wallpaper": {
+          "type": "string"
+        }
+      },
+      "required": ["mode", "background"],
+      "additionalProperties": false
+    },
+    "characters": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "side": {
+            "type": "string",
+            "enum": ["left", "right"]
+          },
+          "color": {
+            "default": "#637b83",
+            "type": "string"
+          },
+          "avatar": {
+            "type": "string"
+          },
+          "voice_id": {
+            "default": "zh-CN-XiaoxiaoNeural",
+            "type": "string"
+          }
+        },
+        "required": ["id", "name", "side", "color", "voice_id"],
+        "additionalProperties": false
+      }
+    },
+    "messages": {
+      "minItems": 1,
+      "maxItems": 1000,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sender_id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "text",
+              "image",
+              "emoji",
+              "time",
+              "voice",
+              "redpacket",
+              "transfer",
+              "card",
+              "recall",
+              "system"
+            ]
+          },
+          "text": {
+            "default": "",
+            "type": "string"
+          },
+          "asset_path": {
+            "type": "string"
+          },
+          "appear_at_ms": {
+            "type": "number",
+            "minimum": 0
+          },
+          "animation_duration_ms": {
+            "default": 240,
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2000
+          },
+          "wait_before_ms": {
+            "default": 0,
+            "type": "number",
+            "minimum": 0
+          },
+          "typing_ms": {
+            "default": 0,
+            "type": "number",
+            "minimum": 0
+          },
+          "voice_id": {
+            "type": "string"
+          },
+          "voice_mode": {
+            "default": "auto",
+            "type": "string",
+            "enum": ["auto", "manual"]
+          },
+          "audio_path": {
+            "type": "string"
+          },
+          "audio_duration_ms": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "sound_effect": {
+            "default": "receive",
+            "type": "string",
+            "enum": [
+              "send",
+              "receive",
+              "keyboard",
+              "start",
+              "end",
+              "click",
+              "recall",
+              "none"
+            ]
+          },
+          "auto_scroll": {
+            "default": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "sender_id",
+          "type",
+          "text",
+          "appear_at_ms",
+          "animation_duration_ms",
+          "wait_before_ms",
+          "typing_ms",
+          "voice_mode",
+          "sound_effect",
+          "auto_scroll"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "voice_settings": {
+      "type": "object",
+      "properties": {
+        "backend": {
+          "default": "edge",
+          "type": "string",
+          "enum": ["edge", "windows"]
+        },
+        "rate": {
+          "default": "+0%",
+          "type": "string",
+          "pattern": "^[+-]\\d+%$"
+        },
+        "volume": {
+          "default": 0.85,
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "required": ["backend", "rate", "volume"],
+      "additionalProperties": false
+    },
+    "audio_settings": {
+      "type": "object",
+      "properties": {
+        "muted": {
+          "default": false,
+          "type": "boolean"
+        },
+        "effects_volume": {
+          "default": 0.25,
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "required": ["muted", "effects_volume"],
+      "additionalProperties": false
+    },
+    "render_settings": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "default": 1080,
+          "type": "number",
+          "const": 1080
+        },
+        "height": {
+          "default": 1920,
+          "type": "number",
+          "const": 1920
+        },
+        "fps": {
+          "default": 30,
+          "type": "number",
+          "const": 30
+        },
+        "lead_in_ms": {
+          "default": 500,
+          "type": "number",
+          "minimum": 0
+        },
+        "tail_ms": {
+          "default": 1200,
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": ["width", "height", "fps", "lead_in_ms", "tail_ms"],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "project_id",
+    "title",
+    "device",
+    "status_bar",
+    "theme",
+    "characters",
+    "messages",
+    "voice_settings",
+    "audio_settings",
+    "render_settings"
+  ],
+  "additionalProperties": false
+}

@@ -1,7 +1,151 @@
-import {z} from 'zod';
-const asset=z.string().refine(v=>!v.includes('..')&&!/^(?:[a-z]+:|[\\/])/i.test(v),'资源必须是 public 下的相对路径');
-export const messageSchema=z.object({id:z.string().min(1),sender_id:z.string(),type:z.enum(['text','image','emoji','time','voice','redpacket','transfer','card','recall','system']),text:z.string().default(''),asset_path:asset.optional(),appear_at_ms:z.number().min(0),animation_duration_ms:z.number().min(0).max(2000).default(240),wait_before_ms:z.number().min(0).default(0),typing_ms:z.number().min(0).default(0),voice_id:z.string().optional(),voice_mode:z.enum(['auto','manual']).default('auto'),audio_path:asset.optional(),audio_duration_ms:z.number().positive().optional(),sound_effect:z.enum(['send','receive','keyboard','start','end','click','recall','none']).default('receive'),auto_scroll:z.boolean().default(true)});
-export const storySchema=z.object({schema_version:z.literal('1.0').default('1.0'),project_id:z.string().regex(/^[a-zA-Z0-9_-]+$/),title:z.string().min(1),device:z.object({platform:z.enum(['ios','android']).default('ios'),frame:z.boolean().default(true),cutout:z.enum(['island','notch','none']).default('island')}).prefault({}),status_bar:z.object({time:z.string().regex(/^\d{2}:\d{2}$/).default('08:30'),battery:z.number().min(0).max(100).default(85),charging:z.boolean().default(false),network:z.enum(['Wi-Fi','4G','5G']).default('Wi-Fi'),signal:z.number().int().min(0).max(4).default(4)}).prefault({}),theme:z.object({mode:z.enum(['light','dark']).default('light'),background:z.string().default('#ededed'),wallpaper:asset.optional()}).prefault({}),characters:z.array(z.object({id:z.string().min(1),name:z.string().min(1),side:z.enum(['left','right']),color:z.string().default('#637b83'),avatar:asset.optional(),voice_id:z.string().default('zh-CN-XiaoxiaoNeural')})).min(1),messages:z.array(messageSchema).min(1).max(1000),voice_settings:z.object({rate:z.string().regex(/^[+-]\d+%$/).default('+0%'),volume:z.number().min(0).max(1).default(.85)}).prefault({}),audio_settings:z.object({muted:z.boolean().default(false),effects_volume:z.number().min(0).max(1).default(.25)}).prefault({}),render_settings:z.object({width:z.literal(1080).default(1080),height:z.literal(1920).default(1920),fps:z.literal(30).default(30),lead_in_ms:z.number().min(0).default(500),tail_ms:z.number().min(0).default(1200)}).prefault({})}).superRefine((s,ctx)=>{const ids=new Set(s.characters.map(c=>c.id));const seen=new Set<string>();for(const [i,m] of s.messages.entries()){if(seen.has(m.id))ctx.addIssue({code:'custom',path:['messages',i,'id'],message:'消息 ID 重复'});seen.add(m.id);if(!ids.has(m.sender_id))ctx.addIssue({code:'custom',path:['messages',i,'sender_id'],message:'人物不存在'});if(m.type==='image'&&!m.asset_path)ctx.addIssue({code:'custom',path:['messages',i,'asset_path'],message:'图片缺少资源'});}});
-export type Story=z.infer<typeof storySchema>;
-export type Message=Story['messages'][number];
-export function parseStory(value:unknown):Story { const r=storySchema.safeParse(value);if(!r.success)throw new Error(r.error.issues.map(i=>`${i.path.join('.')}: ${i.message}`).join('\n'));return r.data; }
+import { z } from "zod";
+const asset = z
+  .string()
+  .refine(
+    (v) => !v.includes("..") && !/^(?:[a-z]+:|[\\/])/i.test(v),
+    "资源必须是 public 下的相对路径",
+  );
+export const messageSchema = z.object({
+  id: z.string().min(1),
+  sender_id: z.string(),
+  type: z.enum([
+    "text",
+    "image",
+    "emoji",
+    "time",
+    "voice",
+    "redpacket",
+    "transfer",
+    "card",
+    "recall",
+    "system",
+  ]),
+  text: z.string().default(""),
+  asset_path: asset.optional(),
+  appear_at_ms: z.number().min(0),
+  animation_duration_ms: z.number().min(0).max(2000).default(240),
+  wait_before_ms: z.number().min(0).default(0),
+  typing_ms: z.number().min(0).default(0),
+  voice_id: z.string().optional(),
+  voice_mode: z.enum(["auto", "manual"]).default("auto"),
+  audio_path: asset.optional(),
+  audio_duration_ms: z.number().positive().optional(),
+  sound_effect: z
+    .enum([
+      "send",
+      "receive",
+      "keyboard",
+      "start",
+      "end",
+      "click",
+      "recall",
+      "none",
+    ])
+    .default("receive"),
+  auto_scroll: z.boolean().default(true),
+});
+export const storySchema = z
+  .object({
+    schema_version: z.literal("1.0").default("1.0"),
+    project_id: z.string().regex(/^[a-zA-Z0-9_-]+$/),
+    title: z.string().min(1),
+    device: z
+      .object({
+        platform: z.enum(["ios", "android"]).default("ios"),
+        frame: z.boolean().default(true),
+        cutout: z.enum(["island", "notch", "none"]).default("island"),
+      })
+      .prefault({}),
+    status_bar: z
+      .object({
+        time: z
+          .string()
+          .regex(/^\d{2}:\d{2}$/)
+          .default("08:30"),
+        battery: z.number().min(0).max(100).default(85),
+        charging: z.boolean().default(false),
+        network: z.enum(["Wi-Fi", "4G", "5G"]).default("Wi-Fi"),
+        signal: z.number().int().min(0).max(4).default(4),
+      })
+      .prefault({}),
+    theme: z
+      .object({
+        mode: z.enum(["light", "dark"]).default("light"),
+        background: z.string().default("#ededed"),
+        wallpaper: asset.optional(),
+      })
+      .prefault({}),
+    characters: z
+      .array(
+        z.object({
+          id: z.string().min(1),
+          name: z.string().min(1),
+          side: z.enum(["left", "right"]),
+          color: z.string().default("#637b83"),
+          avatar: asset.optional(),
+          voice_id: z.string().default("zh-CN-XiaoxiaoNeural"),
+        }),
+      )
+      .min(1),
+    messages: z.array(messageSchema).min(1).max(1000),
+    voice_settings: z
+      .object({
+        backend: z.enum(["edge", "windows"]).default("edge"),
+        rate: z
+          .string()
+          .regex(/^[+-]\d+%$/)
+          .default("+0%"),
+        volume: z.number().min(0).max(1).default(0.85),
+      })
+      .prefault({}),
+    audio_settings: z
+      .object({
+        muted: z.boolean().default(false),
+        effects_volume: z.number().min(0).max(1).default(0.25),
+      })
+      .prefault({}),
+    render_settings: z
+      .object({
+        width: z.literal(1080).default(1080),
+        height: z.literal(1920).default(1920),
+        fps: z.literal(30).default(30),
+        lead_in_ms: z.number().min(0).default(500),
+        tail_ms: z.number().min(0).default(1200),
+      })
+      .prefault({}),
+  })
+  .superRefine((s, ctx) => {
+    const ids = new Set(s.characters.map((c) => c.id));
+    const seen = new Set<string>();
+    for (const [i, m] of s.messages.entries()) {
+      if (seen.has(m.id))
+        ctx.addIssue({
+          code: "custom",
+          path: ["messages", i, "id"],
+          message: "消息 ID 重复",
+        });
+      seen.add(m.id);
+      if (!ids.has(m.sender_id))
+        ctx.addIssue({
+          code: "custom",
+          path: ["messages", i, "sender_id"],
+          message: "人物不存在",
+        });
+      if (m.type === "image" && !m.asset_path)
+        ctx.addIssue({
+          code: "custom",
+          path: ["messages", i, "asset_path"],
+          message: "图片缺少资源",
+        });
+    }
+  });
+export type Story = z.infer<typeof storySchema>;
+export type Message = Story["messages"][number];
+export function parseStory(value: unknown): Story {
+  const r = storySchema.safeParse(value);
+  if (!r.success)
+    throw new Error(
+      r.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).join("\n"),
+    );
+  return r.data;
+}

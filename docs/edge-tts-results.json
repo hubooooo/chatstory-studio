@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "backend": "Python edge-tts 7.3.1",
+  "voices": [
+    {
+      "id": "m1",
+      "audio": "assets/tts-10cb8d6d7a2035c61d152cc7.mp3",
+      "ms": 3144
+    },
+    {
+      "id": "m2",
+      "audio": "assets/tts-ff871e3d2b5d3dfbd85db86a.mp3",
+      "ms": 3288
+    }
+  ]
+}

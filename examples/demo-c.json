@@ -1,0 +1,218 @@
+{
+  "schema_version": "1.0",
+  "project_id": "demo-c",
+  "title": "周末远行小分队",
+  "device": {
+    "platform": "ios",
+    "frame": true,
+    "cutout": "island"
+  },
+  "status_bar": {
+    "time": "08:30",
+    "battery": 85,
+    "charging": false,
+    "network": "Wi-Fi",
+    "signal": 4
+  },
+  "theme": {
+    "mode": "light",
+    "background": "#ededed"
+  },
+  "characters": [
+    {
+      "id": "lin",
+      "name": "小林",
+      "side": "left",
+      "color": "#bd8870",
+      "voice_id": "zh-CN-XiaoxiaoNeural"
+    },
+    {
+      "id": "zhou",
+      "name": "小周",
+      "side": "right",
+      "color": "#5a8192",
+      "voice_id": "zh-CN-YunxiNeural"
+    },
+    {
+      "id": "chen",
+      "name": "阿辰",
+      "side": "left",
+      "color": "#8e7baa",
+      "voice_id": "zh-CN-YunxiNeural"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m0",
+      "sender_id": "lin",
+      "type": "time",
+      "text": "周六 09:00",
+      "appear_at_ms": 0,
+      "animation_duration_ms": 240,
+      "wait_before_ms": 0,
+      "typing_ms": 300,
+      "voice_mode": "auto",
+      "sound_effect": "receive",
+      "auto_scroll": true
+    },
+    {
+      "id": "m1",
+      "sender_id": "zhou",
+      "type": "text",
+      "text": "大家集合啦！",
+      "appear_at_ms": 800,
+      "animation_duration_ms": 240,
+      "wait_before_ms": 0,
+      "typing_ms": 300,
+      "voice_mode": "auto",
+      "sound_effect": "send",
+      "auto_scroll": true
+    },
+    {
+      "id": "m2",
+      "sender_id": "chen",
+      "type": "image",
+      "text": "这是我画的路线图",
+      "asset_path": "assets/landscape.svg",
+      "appear_at_ms": 1600,
+      "animation_duration_ms": 240,
+      "wait_before_ms": 0,
+      "typing_ms": 300,
+      "voice_mode": "auto",
+      "sound_effect": "receive",
+      "auto_scroll": true
+    },
+    {
+      "id": "m3",
+      "sender_id": "zhou",
+      "type": "text",
+      "text": "今天的计划：先沿着海边慢慢走，看看晨光照在水面上的样子。中午找一家小店吃饭，下午再去山顶，等一场日落。记得带水、防晒和好心情。",
+      "appear_at_ms": 2400,
+      "animation_duration_ms": 240,
+      "wait_before_ms": 0,
+      "typing_ms": 300,
+      "voice_mode": "auto",
+      "sound_effect": "send",
+      "auto_scroll": true
+    },
+    {
+      "id": "m4",
+      "sender_id": "chen",
+      "type": "text",
+      "text": "收到！我带了相机和充电宝。",
+      "appear_at_ms": 3200,
+      "animation_duration_ms": 240,
+      "wait_before_ms": 0,
+      "typing_ms": 300,
+      "voice_mode": "auto",
+      "sound_effect": "receive",
+      "auto_scroll": true
+    },
+    {
+      "id": "m5",
+      "sender_id": "zhou",
+      "type": "text",
+      "text": "收到 🌊 / Ready to go!",
+      "appear_at_ms": 4000,
+      "animation_duration_ms": 240,
+      "wait_before_ms": 0,
+      "typing_ms": 300,
+      "voice_mode": "auto",
+      "sound_effect": "send",
+      "auto_scroll": true
+    },
+    {
+      "id": "m6",
+      "sender_id": "lin",
+      "type": "redpacket",
+      "text": "给大家准备的小惊喜",
+      "appear_at_ms": 4800,
+      "animation_duration_ms": 240,
+      "wait_before_ms": 0,
+      "typing_ms": 300,
+      "voice_mode": "auto",
+      "sound_effect": "receive",
+      "auto_scroll": true
+    },
+    {
+      "id": "m7",
+      "sender_id": "chen",
+      "type": "text",
+      "text": "我们已经到了集合点。",
+      "appear_at_ms": 5600,
+      "animation_duration_ms": 240,
+      "wait_before_ms": 0,
+      "typing_ms": 300,
+      "voice_mode": "auto",
+      "sound_effect": "send",
+      "auto_scroll": true
+    },
+    {
+      "id": "m8",
+      "sender_id": "lin",
+      "type": "recall",
+      "text": "刚刚发错了，哈哈",
+      "appear_at_ms": 6400,
+      "animation_duration_ms": 240,
+      "wait_before_ms": 0,
+      "typing_ms": 300,
+      "voice_mode": "auto",
+      "sound_effect": "receive",
+      "auto_scroll": true
+    },
+    {
+      "id": "m9",
+      "sender_id": "zhou",
+      "type": "system",
+      "text": "所有人都已准备好",
+      "appear_at_ms": 7200,
+      "animation_duration_ms": 240,
+      "wait_before_ms": 0,
+      "typing_ms": 300,
+      "voice_mode": "auto",
+      "sound_effect": "send",
+      "auto_scroll": true
+    },
+    {
+      "id": "m10",
+      "sender_id": "lin",
+      "type": "text",
+      "text": "别急，旅途本身就是最好的风景。我们慢慢走，把今天的故事记录下来。",
+      "appear_at_ms": 8000,
+      "animation_duration_ms": 240,
+      "wait_before_ms": 0,
+      "typing_ms": 300,
+      "voice_mode": "auto",
+      "sound_effect": "receive",
+      "auto_scroll": true
+    },
+    {
+      "id": "m11",
+      "sender_id": "chen",
+      "type": "emoji",
+      "text": "出发！",
+      "appear_at_ms": 8800,
+      "animation_duration_ms": 240,
+      "wait_before_ms": 0,
+      "typing_ms": 300,
+      "voice_mode": "auto",
+      "sound_effect": "send",
+      "auto_scroll": true
+    }
+  ],
+  "voice_settings": {
+    "rate": "+0%",
+    "volume": 0.85
+  },
+  "audio_settings": {
+    "muted": false,
+    "effects_volume": 0.25
+  },
+  "render_settings": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "lead_in_ms": 500,
+    "tail_ms": 1200
+  }
+}

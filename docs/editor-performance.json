@@ -1,0 +1,14 @@
+{
+  "cpu": "Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz",
+  "total_ram_bytes": 34275053568,
+  "node": "v24.19.0",
+  "platform": "win32",
+  "import_100_messages_ms": 727,
+  "edit_100_messages_ms": 96,
+  "preview_observed_fps": 26.931325120921585,
+  "playback": {
+    "elapsed_ms": 2005.1000000014901,
+    "distinct_frames": 55
+  },
+  "notes": "Headless browser on current machine. Import/edit are end-to-end automation timings, not pure component benchmarks."
+}

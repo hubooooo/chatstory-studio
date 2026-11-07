@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "frame": 137,
+  "ssim": 0.988771,
+  "minimum": 0.96,
+  "width": 1080,
+  "height": 1920
+}

@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "isolated_source_copy": true,
+  "install_ms": 33185,
+  "server_ready_ms": 1573,
+  "build": "PASS",
+  "render": "PASS",
+  "path_case": "Chinese and space directory + output filename",
+  "note": "Same Windows machine and shared npm download cache; not a fresh OS."
+}

@@ -1,0 +1,15 @@
+{
+  "benchmarks": [
+    {
+      "video_seconds": 30,
+      "render_ms": 53919,
+      "memory_rss_bytes": 228179968
+    },
+    {
+      "video_seconds": 60,
+      "render_ms": 105386,
+      "memory_rss_bytes": 225300480
+    }
+  ],
+  "notes": "RSS is Node parent process after rendering; not total or peak browser memory."
+}
