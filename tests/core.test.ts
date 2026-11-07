@@ -4,6 +4,14 @@ import { durationFrames, timeline, scrollAt } from "../src/timeline";
 import fs from "node:fs";
 const demo = () => JSON.parse(fs.readFileSync("examples/demo-a.json", "utf8"));
 describe("Schema and frame contract", () => {
+  it("rejects remote CSS backgrounds and invalid clock time", () => {
+    const a = demo();
+    a.theme.background = "url(https://example.com/private)";
+    expect(() => parseStory(a)).toThrow();
+    const b = demo();
+    b.status_bar.time = "99:99";
+    expect(() => parseStory(b)).toThrow();
+  });
   it("accepts three runnable examples", () => {
     for (const file of ["demo-a", "demo-b", "demo-c"])
       expect(

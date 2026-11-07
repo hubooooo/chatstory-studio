@@ -1,0 +1,19 @@
+{
+  "success": true,
+  "passed": 14,
+  "failed": 0,
+  "pending": 0,
+  "total": 14,
+  "files": [
+    {
+      "name": "core.test.ts",
+      "status": "passed",
+      "tests": 10
+    },
+    {
+      "name": "media.test.ts",
+      "status": "passed",
+      "tests": 4
+    }
+  ]
+}

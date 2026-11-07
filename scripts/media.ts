@@ -1,3 +1,4 @@
+import { createEffects } from "../src/audio/effects";
 import { windowsSpeech } from "../src/tts/windows";
 import { spawn } from "node:child_process";
 import path from "node:path";
@@ -62,54 +63,8 @@ export async function probe(file: string) {
     ]),
   );
 }
-export async function initEffects() {
-  await fs.mkdir(path.join(PUBLIC, "assets"), { recursive: true });
-  for (const [i, name] of [
-    "send",
-    "receive",
-    "keyboard",
-    "start",
-    "end",
-    "click",
-    "recall",
-    "none",
-  ].entries()) {
-    const file = path.join(PUBLIC, "assets", `${name}.wav`);
-    try {
-      await fs.access(file);
-      continue;
-    } catch {
-      /* Generate original PCM tones, no third-party assets. */
-    }
-    const rate = 48000,
-      n = Math.round(rate * 0.12),
-      b = Buffer.alloc(44 + n * 2);
-    b.write("RIFF");
-    b.writeUInt32LE(36 + n * 2, 4);
-    b.write("WAVEfmt ", 8);
-    b.writeUInt32LE(16, 16);
-    b.writeUInt16LE(1, 20);
-    b.writeUInt16LE(1, 22);
-    b.writeUInt32LE(rate, 24);
-    b.writeUInt32LE(rate * 2, 28);
-    b.writeUInt16LE(2, 32);
-    b.writeUInt16LE(16, 34);
-    b.write("data", 36);
-    b.writeUInt32LE(n * 2, 40);
-    for (let t = 0; t < n; t++)
-      b.writeInt16LE(
-        name === "none"
-          ? 0
-          : Math.round(
-              Math.sin((2 * Math.PI * (440 + i * 110) * t) / rate) *
-                Math.sin((Math.PI * t) / n) *
-                4500,
-            ),
-        44 + t * 2,
-      );
-    await fs.writeFile(file, b);
-  }
-}
+export async function videoFrameHash(file:string){const data=await run(bin,['-v','error','-i',file,'-map','0:v:0','-f','framemd5','-']);return createHash('sha256').update(data.split('\n').filter(x=>x&&!x.startsWith('#')).join('\n')).digest('hex');}
+export const initEffects = () => createEffects(PUBLIC);
 export async function prepareStory(input: Story) {
   const s = structuredClone(input);
   await initEffects();

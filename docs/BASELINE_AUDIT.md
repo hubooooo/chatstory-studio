@@ -1,7 +1,7 @@
 # Phase 0 — 2026-11-07
 
 Workspace was empty. Work is isolated in `chatstory-studio`; upstream checkouts remain outside it.
-Node v24.19.0, npm 11.17.0, Git 2.55.0, gh 2.98.0. FFmpeg, FFprobe and Python unavailable on PATH. GitHub CLI credentials currently invalid; no publication attempted.
+Node v24.19.0, npm 11.17.0, Git 2.55.0, gh 2.98.0. FFmpeg, FFprobe and Python initially unavailable on PATH. Initial restricted-process GitHub auth check failed; a later authorized normal-user keyring check succeeded as hubooooo. No publication attempted.
 
 ## Actual upstream inspection
 

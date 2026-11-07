@@ -32,14 +32,14 @@
     "audio": [
       {
         "id": "m1",
-        "path": "assets/tts-748e209396e08d6fff8f8bd6.wav",
-        "probed_ms": 3151,
+        "path": "assets/tts-10cb8d6d7a2035c61d152cc7.mp3",
+        "probed_ms": 3144,
         "display_seconds": 4
       },
       {
         "id": "m2",
-        "path": "assets/tts-c8037f62a3a1b688f575739a.wav",
-        "probed_ms": 3938,
+        "path": "assets/tts-ff871e3d2b5d3dfbd85db86a.mp3",
+        "probed_ms": 3288,
         "display_seconds": 4
       }
     ]

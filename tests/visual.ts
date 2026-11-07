@@ -1,12 +1,8 @@
-import { chromium, expect } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { openBrowser } from "./browser";
 import fs from "node:fs/promises";
 import { run, bin } from "../scripts/media";
-const browser = await chromium.launch({
-  executablePath:
-    process.env.CHROME_PATH ||
-    "C:/Program Files/Google/Chrome/Application/chrome.exe",
-  headless: true,
-});
+const browser = await openBrowser();
 const page = await browser.newPage({ viewport: { width: 1536, height: 1100 } });
 await page.goto("http://127.0.0.1:3210");
 await page.getByLabel("载入示例").selectOption("demo-a.json");

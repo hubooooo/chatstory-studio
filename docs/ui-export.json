@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "import": true,
+  "render_from_editor": true,
+  "progress_download_link": true,
+  "reload": true,
+  "persisted_queue": true,
+  "width": 1080,
+  "height": 1920
+}

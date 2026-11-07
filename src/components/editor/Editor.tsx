@@ -90,7 +90,30 @@ export function Editor() {
     }
   };
   const update = (partial: Partial<Story>) =>
-    setStory((s) => ({ ...s, ...partial }));
+    setStory((s) => {
+      const next = { ...s, ...partial };
+      const voicesChanged = new Set(
+        (partial.characters || [])
+          .filter(
+            (c) =>
+              s.characters.find((old) => old.id === c.id)?.voice_id !==
+              c.voice_id,
+          )
+          .map((c) => c.id),
+      );
+      const settingsChanged =
+        partial.voice_settings &&
+        (partial.voice_settings.rate !== s.voice_settings.rate ||
+          partial.voice_settings.backend !== s.voice_settings.backend);
+      if (settingsChanged || voicesChanged.size)
+        next.messages = next.messages.map((m) =>
+          m.audio_path?.startsWith("assets/tts-") &&
+          (settingsChanged || voicesChanged.has(m.sender_id))
+            ? { ...m, audio_path: undefined, audio_duration_ms: undefined }
+            : m,
+        );
+      return next;
+    });
   const edit = (partial: Partial<Message>) =>
     setStory((s) => ({
       ...s,

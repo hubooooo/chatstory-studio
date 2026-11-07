@@ -43,5 +43,10 @@
   },
   "overrides": {
     "minimatch": "11.0.5"
+  },
+  "license": "MIT",
+  "description": "Open-source chat story video generator with phone UI, animated messages, AI voices, sound effects and batch MP4 rendering.",
+  "engines": {
+    "node": "^22.0.0 || ^24.0.0"
   }
 }

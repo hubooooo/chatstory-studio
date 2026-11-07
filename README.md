@@ -50,7 +50,7 @@ python -m venv .venv
 .venv\Scripts\python -m pip install edge-tts==7.3.1
 ```
 
-程序自动查找本项目 `.venv` 或 PATH，也可设置 `EDGE_TTS_PATH`。网络超时会明确报错；可在消息面板导入 WAV／MP3／M4A／OGG。缓存音频需要重生成时，清除消息的 `audio_path` 和 `audio_duration_ms`。修改人物声线／语速后，也应清除对应生成音频再生成，避免继续使用旧录音。
+程序自动查找本项目 `.venv` 或 PATH，也可设置 `EDGE_TTS_PATH`。网络超时会明确报错；可在消息面板导入 WAV／MP3／M4A／OGG。在界面修改人物声线、语速或后端时，会自动清除对应合成音频引用，随后点击生成即可。本地录音不会因更改声线被替换。直接编辑 JSON 时，保留的 `audio_path` 被视为固定录音；如要重生成，应清除该字段和 `audio_duration_ms`。
 
 离线合成可在声音面板选择 Windows 后端：需 PowerShell 7 和安装好的中文 SAPI 声音（女声慧慧、男声康康等）；未安装某个性别的声线会提示错误。离线引擎的自然度与 Edge 神经语音不同，不伪称同一服务。通过 `voice_settings.rate` 控制语速，通过消息时间安排停顿。
 

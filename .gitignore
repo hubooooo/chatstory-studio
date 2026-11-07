@@ -9,3 +9,15 @@ test-results/
 playwright-report/
 .env*
 !.env.example
+public/assets/*
+!public/assets/landscape.svg
+!public/assets/send.wav
+!public/assets/receive.wav
+!public/assets/keyboard.wav
+!public/assets/start.wav
+!public/assets/end.wav
+!public/assets/click.wav
+!public/assets/recall.wav
+!public/assets/none.wav
+!public/assets/tts-10cb8d6d7a2035c61d152cc7.mp3
+!public/assets/tts-ff871e3d2b5d3dfbd85db86a.mp3

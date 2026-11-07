@@ -1,6 +1,8 @@
 import { interpolate, staticFile } from "remotion";
 import type { Story } from "../../schema/story";
 import { timeline, scrollAt, rowHeight } from "../../timeline";
+import { useEffect, useRef, useState } from "react";
+import type { Message } from "../../schema/story";
 export function Conversation({
   story: s,
   frame,
@@ -130,22 +132,12 @@ export function Conversation({
                       }}
                     />
                   ) : m.type === "voice" ? (
-                    <div
-                      onClick={() => {
-                        if (m.audio_path)
-                          void new Audio(staticFile(m.audio_path)).play();
-                      }}
-                      style={{
-                        width:
-                          260 + Math.min(240, (m.audio_duration_ms ?? 0) / 70),
-                        cursor: "pointer",
-                      }}
-                    >
-                      {speaking
-                        ? ["▂ ▄ ▆", "▃ ▆ █", "▂ ▄ ▆"][Math.floor(frame / 5) % 3]
-                        : "◖ )))"}
-                      　{Math.ceil((m.audio_duration_ms ?? 0) / 1000)}″
-                    </div>
+                    <VoiceBar
+                      message={m}
+                      speaking={speaking}
+                      frame={frame}
+                      volume={s.audio_settings.muted?0:s.voice_settings.volume}
+                    />
                   ) : m.type === "redpacket" ? (
                     <span style={{ color: "#b24120" }}>▣ 红包 · {m.text}</span>
                   ) : m.type === "transfer" ? (
@@ -175,6 +167,72 @@ export function Conversation({
             对方正在输入{".".repeat((Math.floor(frame / 10) % 3) + 1)}
           </div>
         ))}
+    </div>
+  );
+}
+function VoiceBar({
+  message: m,
+  speaking,
+  frame,
+  volume,
+}: {
+  message: Message;
+  speaking: boolean;
+  frame: number;
+  volume: number;
+}) {
+  const audio = useRef<HTMLAudioElement | null>(null);
+  const [tick, setTick] = useState(-1);
+  const [error, setError] = useState("");
+  useEffect(
+    () => () => {
+      audio.current?.pause();
+      audio.current = null;
+    },
+    [m.audio_path],
+  );
+  const click = async () => {
+    if (!m.audio_path) return;
+    let a = audio.current;
+    if (!a) {
+      a = new window.Audio(staticFile(m.audio_path));
+      audio.current = a;
+      a.ontimeupdate = () => setTick(Math.floor(a!.currentTime * 6));
+      a.onended = () => setTick(-1);
+      a.onpause = () => setTick(-1);
+    }
+    a.volume = volume;
+    if (!a.paused) {
+      a.pause();
+      return;
+    }
+    try {
+      await a.play();
+      setTick(0);
+      setError("");
+    } catch {
+      setError("音频播放失败，请重新检查资源");
+    }
+  };
+  return (
+    <div
+      role="button"
+      aria-label="试听语音"
+      title={error || "点击试听／暂停"}
+      onClick={() => void click()}
+      style={{
+        width: 260 + Math.min(240, (m.audio_duration_ms ?? 0) / 70),
+        cursor: "pointer",
+      }}
+    >
+      {error
+        ? "⚠"
+        : speaking || tick >= 0
+          ? ["▂ ▄ ▆", "▃ ▆ █", "▂ ▄ ▆"][
+              (tick >= 0 ? tick : Math.floor(frame / 5)) % 3
+            ]
+          : "◖ )))"}
+      　{Math.ceil((m.audio_duration_ms ?? 0) / 1000)}″
     </div>
   );
 }

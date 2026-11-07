@@ -42,7 +42,7 @@
         "time": {
           "default": "08:30",
           "type": "string",
-          "pattern": "^\\d{2}:\\d{2}$"
+          "pattern": "^(?:[01]\\d|2[0-3]):[0-5]\\d$"
         },
         "battery": {
           "default": 85,
@@ -79,10 +79,13 @@
         },
         "background": {
           "default": "#ededed",
-          "type": "string"
+          "type": "string",
+          "pattern": "^#[0-9a-f]{6}$"
         },
         "wallpaper": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 512,
+          "pattern": "^[\\p{L}\\p{N}_ ./-]+$"
         }
       },
       "required": ["mode", "background"],
@@ -108,10 +111,13 @@
           },
           "color": {
             "default": "#637b83",
-            "type": "string"
+            "type": "string",
+            "pattern": "^#[0-9a-f]{6}$"
           },
           "avatar": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 512,
+            "pattern": "^[\\p{L}\\p{N}_ ./-]+$"
           },
           "voice_id": {
             "default": "zh-CN-XiaoxiaoNeural",
@@ -156,11 +162,14 @@
             "type": "string"
           },
           "asset_path": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 512,
+            "pattern": "^[\\p{L}\\p{N}_ ./-]+$"
           },
           "appear_at_ms": {
             "type": "number",
-            "minimum": 0
+            "minimum": 0,
+            "maximum": 3600000
           },
           "animation_duration_ms": {
             "default": 240,
@@ -187,7 +196,9 @@
             "enum": ["auto", "manual"]
           },
           "audio_path": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 512,
+            "pattern": "^[\\p{L}\\p{N}_ ./-]+$"
           },
           "audio_duration_ms": {
             "type": "number",

@@ -1,0 +1,8 @@
+{
+  "video_seconds": 30,
+  "render_wall_ms": 56799,
+  "peak_process_tree_working_set_bytes": 1684987904,
+  "scope": "Node renderer and descendants; sampled about every 500ms plus CIM overhead; excludes editor service",
+  "passed": true,
+  "samples": 73
+}

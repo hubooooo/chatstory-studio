@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "manual_click_playback": true,
+  "waveform_updates": true,
+  "ended_restores_static_bar": true,
+  "display_seconds": 4
+}

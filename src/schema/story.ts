@@ -1,6 +1,8 @@
 import { z } from "zod";
 const asset = z
   .string()
+  .max(512)
+  .regex(/^[\p{L}\p{N}_ ./-]+$/u, "资源路径包含不支持的字符，请使用正斜杠")
   .refine(
     (v) => !v.includes("..") && !/^(?:[a-z]+:|[\\/])/i.test(v),
     "资源必须是 public 下的相对路径",
@@ -22,7 +24,7 @@ export const messageSchema = z.object({
   ]),
   text: z.string().default(""),
   asset_path: asset.optional(),
-  appear_at_ms: z.number().min(0),
+  appear_at_ms: z.number().min(0).max(3600000),
   animation_duration_ms: z.number().min(0).max(2000).default(240),
   wait_before_ms: z.number().min(0).default(0),
   typing_ms: z.number().min(0).default(0),
@@ -60,7 +62,7 @@ export const storySchema = z
       .object({
         time: z
           .string()
-          .regex(/^\d{2}:\d{2}$/)
+          .regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/)
           .default("08:30"),
         battery: z.number().min(0).max(100).default(85),
         charging: z.boolean().default(false),
@@ -71,7 +73,10 @@ export const storySchema = z
     theme: z
       .object({
         mode: z.enum(["light", "dark"]).default("light"),
-        background: z.string().default("#ededed"),
+        background: z
+          .string()
+          .regex(/^#[0-9a-f]{6}$/i)
+          .default("#ededed"),
         wallpaper: asset.optional(),
       })
       .prefault({}),
@@ -81,7 +86,10 @@ export const storySchema = z
           id: z.string().min(1),
           name: z.string().min(1),
           side: z.enum(["left", "right"]),
-          color: z.string().default("#637b83"),
+          color: z
+            .string()
+            .regex(/^#[0-9a-f]{6}$/i)
+            .default("#637b83"),
           avatar: asset.optional(),
           voice_id: z.string().default("zh-CN-XiaoxiaoNeural"),
         }),

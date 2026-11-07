@@ -49,6 +49,7 @@ for (const name of ["demo-a", "demo-b", "demo-c"]) {
   };
 }
 await fs.writeFile("docs/media-qa.json", JSON.stringify(report, null, 2));
+if(process.argv.includes('--frames-only'))process.exit(0);
 const scripts = path.join(out, "failure-input");
 await fs.mkdir(scripts, { recursive: true });
 await fs.writeFile(path.join(scripts, "00-invalid.json"), "{broken");

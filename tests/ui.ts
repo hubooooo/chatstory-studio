@@ -1,11 +1,7 @@
-import { chromium, expect } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { openBrowser } from "./browser";
 import fs from "node:fs/promises";
-const browser = await chromium.launch({
-  executablePath:
-    process.env.CHROME_PATH ||
-    "C:/Program Files/Google/Chrome/Application/chrome.exe",
-  headless: true,
-});
+const browser = await openBrowser();
 const page = await browser.newPage({ viewport: { width: 1536, height: 1100 } });
 const errors: string[] = [];
 page.on("pageerror", (e) => errors.push(e.message));
@@ -15,11 +11,24 @@ await expect(
   page.getByRole("button", { name: "保存项目", exact: true }),
 ).toBeVisible();
 await page.getByLabel("状态栏时间").fill("23:59");
+await page.getByLabel("网络").selectOption("5G");
+await page.getByLabel("电量 85%").focus();
+await page.keyboard.press("End");
+await page.keyboard.press("ArrowLeft");
+await page.getByLabel("信号强度").focus();
+await page.keyboard.press("Home");
+await page.keyboard.press("ArrowRight");
+await page.keyboard.press("ArrowRight");
+await page.getByLabel("充电中").check();
 await page.getByRole("button", { name: "保存项目", exact: true }).click();
 await expect(page.getByRole("status")).toContainText("项目已保存");
 await page.reload();
 await page.getByLabel("载入项目").selectOption("new-story.json");
 await expect(page.getByLabel("状态栏时间")).toHaveValue("23:59");
+await expect(page.getByLabel("网络")).toHaveValue("5G");
+await expect(page.getByLabel("电量 99%")).toHaveValue("99");
+await expect(page.getByLabel("信号强度")).toHaveValue("2");
+await expect(page.getByLabel("充电中")).toBeChecked();
 await page.getByLabel("载入示例").selectOption("demo-c.json");
 await page.getByRole("button", { name: "消息", exact: true }).click();
 await page.getByLabel("消息内容").fill("测试长文字 🌊 Hello 世界");

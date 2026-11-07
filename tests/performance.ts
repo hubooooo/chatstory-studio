@@ -1,12 +1,8 @@
-import { chromium, expect } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { openBrowser } from "./browser";
 import fs from "node:fs/promises";
 import os from "node:os";
-const browser = await chromium.launch({
-  executablePath:
-    process.env.CHROME_PATH ||
-    "C:/Program Files/Google/Chrome/Application/chrome.exe",
-  headless: true,
-});
+const browser = await openBrowser();
 const page = await browser.newPage({ viewport: { width: 1536, height: 1100 } });
 await page.goto("http://127.0.0.1:3210");
 const s = JSON.parse(await fs.readFile("examples/demo-a.json", "utf8"));
@@ -18,13 +14,11 @@ s.messages = Array.from({ length: 100 }, (_, i) => ({
   text: `第 ${i + 1} 条虚构测试消息：你好，世界！`,
 }));
 const started = Date.now();
-await page
-  .locator('input[accept=".json"]')
-  .setInputFiles({
-    name: "performance.json",
-    mimeType: "application/json",
-    buffer: Buffer.from(JSON.stringify(s)),
-  });
+await page.locator('input[accept=".json"]').setInputFiles({
+  name: "performance.json",
+  mimeType: "application/json",
+  buffer: Buffer.from(JSON.stringify(s)),
+});
 await expect(page.locator("footer")).toContainText("100 条消息");
 const loaded = Date.now();
 await page.getByRole("button", { name: "消息", exact: true }).click();
