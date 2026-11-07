@@ -1,6 +1,6 @@
 # ChatStory Studio
 
-开源手机聊天故事视频生成器。原创聊天界面、帧时间轴、人物配音与本地批量 MP4 渲染。当前为 **v0.1.0 预发布候选**，尚未在 GitHub 公开发布。
+开源手机聊天故事视频生成器。原创聊天界面、帧时间轴、人物配音与本地批量 MP4 渲染。当前为 **v0.1.0 预发布**。[GitHub 仓库](https://github.com/hubooooo/chatstory-studio) · [下载与演示视频](https://github.com/hubooooo/chatstory-studio/releases/tag/v0.1.0) · [English](README_EN.md)
 
 ![实际编辑器界面](docs/screenshots/editor.png)
 

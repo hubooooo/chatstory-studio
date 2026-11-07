@@ -1,6 +1,6 @@
 # ChatStory Studio
 
-Local chat story video generator with customizable phone interfaces, animated conversations, AI voices and batch MP4 rendering. **v0.1.0 prerelease candidate; not published to GitHub yet.**
+Local chat story video generator with customizable phone interfaces, animated conversations, AI voices and batch MP4 rendering. **v0.1.0 prerelease.** [Repository](https://github.com/hubooooo/chatstory-studio) · [Downloads and demo videos](https://github.com/hubooooo/chatstory-studio/releases/tag/v0.1.0) · [中文](README.md)
 
 ![Actual editor](docs/screenshots/editor.png)
 
