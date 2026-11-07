@@ -62,10 +62,10 @@ await fs.writeFile(
       version: "0.1.0",
       prerelease: true,
       commit,
-      public: false,
-      repository_created: false,
-      proposed_repository: "https://github.com/hubooooo/chatstory-studio",
-      owner_confirmed: false,
+      public: true,
+      repository_created: true,
+      repository: "https://github.com/hubooooo/chatstory-studio",
+      owner_confirmed: true,
       source_files,
       artifacts,
       excluded: [
@@ -77,7 +77,7 @@ await fs.writeFile(
         "unreviewed user uploads",
       ],
       publication:
-        "Awaiting final user confirmation of owner/content; no remote write performed.",
+        "User authorized public publication. This packaging command does not upload; verify remote release using the publication receipt.",
     },
     null,
     2,

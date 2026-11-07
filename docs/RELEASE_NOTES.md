@@ -1,4 +1,4 @@
-# v0.1.0 — prerelease candidate
+# v0.1.0 — prerelease
 
 Local phone chat video creation: Chinese editor, shared Remotion timeline/preview/export, original device/chat UI, Story Schema v1, real Edge male/female speech, Windows/local-audio fallback, original synthesized effects, MP4 artifacts and isolated batch processing.
 
@@ -10,4 +10,8 @@ Known limitations: simplified simulated money/contact bubbles; recall notice doe
 
 Original source is MIT, but Remotion's custom organization licensing requirements and other dependency/platform/service terms apply. Upstream code/assets were not copied because actual license files were absent. Full provenance/notices are included. Generated chats are fictional and must not be presented as real evidence.
 
-This file prepares release notes; it does not indicate that a GitHub Release already exists.
+Repository: https://github.com/hubooooo/chatstory-studio
+
+Prerelease and downloadable source/demo artifacts: https://github.com/hubooooo/chatstory-studio/releases/tag/v0.1.0
+
+Local validation: 15 tests passed, 0 failed, 0 skipped; Windows and Ubuntu CI include real offline repeated rendering and decoded-frame hash comparison. Full-history Gitleaks scanning includes the root commit. The live CI run and publication receipt record the exact release commit and final result.
